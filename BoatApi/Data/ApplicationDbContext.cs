@@ -1,12 +1,11 @@
+namespace BoatApi.Data;
+
 using Microsoft.EntityFrameworkCore;
 using BoatApi.Models;
 
-namespace BoatApi.Data
+public class ApplicationDbContext : DbContext
 {
-    public class ApplicationDbContext : DbContext
-    {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Boat> Boats { get; set; }
-    }
+    public DbSet<Boat> Boats { get; set; }
 }
