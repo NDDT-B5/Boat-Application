@@ -1,0 +1,37 @@
+# Top-most EditorConfig file
+root = true
+
+# Applies to all C# files
+[*.cs]
+
+# Code style severity
+dotnet_analyzer_diagnostic.severity = warning
+
+# Show unused usings
+dotnet_diagnostic.IDE0005.severity = warning
+
+# Show unused variables
+dotnet_diagnostic.IDE0059.severity = warning
+
+# Unused parameters
+dotnet_diagnostic.IDE0060.severity = warning
+
+# Remove unnecessary code
+dotnet_diagnostic.IDE0051.severity = warning
+
+# Prefer expression-bodied members
+dotnet_diagnostic.IDE0022.severity = suggestion
+
+# Naming preferences (optional)
+dotnet_naming_rule.private_members_should_be_camel_case.severity = suggestion
+dotnet_naming_rule.private_members_should_be_camel_case.symbols = private_fields
+dotnet_naming_rule.private_members_should_be_camel_case.style = camel_case
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_symbols.private_fields.required_modifiers = readonly
+
+dotnet_naming_style.camel_case.capitalization = camel_case
+dotnet_naming_style.camel_case.required_prefix = _
+dotnet_naming_style.camel_case.required_suffix = 
+dotnet_naming_style.camel_case.word_separator = 
