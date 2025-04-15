@@ -16,12 +16,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IBoatService, BoatService>();
 
+builder.Services.AddEndpointsApiExplorer();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/BoatAPI.json", "BoatAPI");
+        options.RoutePrefix = "swagger";
+    });
 }
 
 app.MapControllers();

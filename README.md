@@ -10,3 +10,6 @@ dotnet ef database update
 ```bash
 dotnet run
 ```
+
+## Swagger
+http://localhost:5163/swagger/index.html
