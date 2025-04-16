@@ -18,6 +18,17 @@ builder.Services.AddScoped<IBoatService, BoatService>();
 
 builder.Services.AddEndpointsApiExplorer();
 
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDev", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -28,6 +39,8 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/openapi/BoatAPI.json", "BoatAPI");
         options.RoutePrefix = "swagger";
     });
+
+    app.UseCors("AllowAngularDev");
 }
 
 app.MapControllers();
