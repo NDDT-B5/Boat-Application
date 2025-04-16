@@ -2,12 +2,14 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
-import { BoatsDataSource, BoatsItem } from './boats-datasource';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BoatDeleteDialogComponent } from './boat-delete-dialog/boat-delete-dialog.component';
 import { BoatEditCreateDialogComponent } from './boat-edit-create-dialog/boat-edit-create-dialog.component';
+import { BoatsDataSource } from '../core/datasources/boats-datasource';
+import { BoatItem } from '../core/models/boat.model';
+import { BoatService } from '../core/services/boat.service';
 
 @Component({
   selector: 'app-boats',
@@ -18,11 +20,13 @@ import { BoatEditCreateDialogComponent } from './boat-edit-create-dialog/boat-ed
 export class BoatsComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<BoatsItem>;
+  @ViewChild(MatTable) table!: MatTable<BoatItem>;
 
-  constructor(public dataSource: BoatsDataSource, private dialog: MatDialog) {}
+  constructor(
+    public dataSource: BoatsDataSource,
+    private dialog: MatDialog,
+    private boatService: BoatService) {}
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name', 'desc', 'actions'];
 
   ngAfterViewInit(): void {
@@ -31,33 +35,44 @@ export class BoatsComponent implements AfterViewInit {
     this.table.dataSource = this.dataSource;
   }
 
-  onAdd() {
+  onCreate() {
     this.dialog.open(BoatEditCreateDialogComponent, {
       data: {
         mode: 'add'
       }
+    }).afterClosed()
+    .subscribe(result => {
+      if (result) {
+        this.boatService.create(result).subscribe(newBoat => this.dataSource.addBoat(newBoat));
+      }
     });
-    console.log("Add clicked");
   }
   
-  onEdit(boat: BoatsItem) {
+  onEdit(boat: BoatItem) {
     this.dialog.open(BoatEditCreateDialogComponent, {
       data: {
         mode: 'edit',
         boat: boat
       }
+    }).afterClosed()
+    .subscribe(result => {
+      if (result) {
+        this.boatService.update(result.id, result).subscribe(_ => this.dataSource.updateBoat(result));
+      }
     });
-    
-    console.log("Edit clicked");
   }
   
-  onDelete(boat: BoatsItem) {
+  onDelete(boat: BoatItem) {
     this.dialog.open(BoatDeleteDialogComponent, {
       data: {
         boat: boat
       }
+    }).afterClosed()
+    .subscribe((result) => {
+      if (result) {
+        this.boatService.delete(boat.id).subscribe();
+      }
     });
-    console.log("Delete clicked");
   }
 
   onDeleteMany() {

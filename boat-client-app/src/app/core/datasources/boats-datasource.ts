@@ -2,19 +2,11 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
+import { Observable, merge, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-// TODO: Replace this with your own data model type
-export interface BoatsItem {
-  name: string;
-  description: string;
-  id: string;
-}
-
-// Replace with your API URL
-const API_URL = 'http://localhost:5163/api/Boats'; 
+import { BoatItem } from '../models/boat.model';
+import { BoatService } from '../services/boat.service';
 
 /**
  * Data source for the Boats view. This class should
@@ -22,22 +14,36 @@ const API_URL = 'http://localhost:5163/api/Boats';
  * (including sorting, pagination, and filtering).
  */
 @Injectable({
-  providedIn: 'root'  // Makes it available app-wide
+  providedIn: 'root'
 })
-export class BoatsDataSource extends DataSource<BoatsItem> {
+export class BoatsDataSource extends DataSource<BoatItem> {
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
-  dataLoaded$ = new BehaviorSubject<BoatsItem[]>([]);
+  dataLoaded$ = new BehaviorSubject<BoatItem[]>([]);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private boatService: BoatService) {
     super();
     this.loadBoats();
   }
 
   loadBoats(): void {
-    this.http.get<BoatsItem[]>(API_URL).subscribe((boats) => {
+    this.boatService.getAll().subscribe((boats) => {
       this.dataLoaded$.next(boats);
     });
+  }
+
+  addBoat(newBoat: BoatItem): void {
+    const currentBoats = this.dataLoaded$.getValue();
+    const updatedBoats = [...currentBoats, newBoat];
+    this.dataLoaded$.next(updatedBoats);
+  }
+
+  updateBoat(updatedBoat: BoatItem): void {
+    const currentBoats = this.dataLoaded$.getValue();
+    const updatedBoats = currentBoats.map(boat =>
+      boat.id === updatedBoat.id ? updatedBoat : boat
+    );
+    this.dataLoaded$.next(updatedBoats);
   }
 
   /**
@@ -45,7 +51,7 @@ export class BoatsDataSource extends DataSource<BoatsItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<BoatsItem[]> {
+  connect(): Observable<BoatItem[]> {
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
@@ -68,7 +74,7 @@ export class BoatsDataSource extends DataSource<BoatsItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: BoatsItem[]): BoatsItem[] {
+  private getPagedData(data: BoatItem[]): BoatItem[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -81,7 +87,7 @@ export class BoatsDataSource extends DataSource<BoatsItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: BoatsItem[]): BoatsItem[] {
+  private getSortedData(data: BoatItem[]): BoatItem[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }

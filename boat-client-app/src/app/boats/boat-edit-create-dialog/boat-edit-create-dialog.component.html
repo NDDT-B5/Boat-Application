@@ -1,9 +1,22 @@
-<h1 mat-dialog-title>Edit Boat</h1>
+<h1 mat-dialog-title>{{ purposeInTitle }} Boat</h1>
 <div mat-dialog-content>
   {{ data | json }}
-  <p>This could be your edit form...</p>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-full mb-4">
+      <mat-label>Boat Name</mat-label>
+      <input matInput formControlName="name" required />
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="w-full mb-4">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="4" required></textarea>
+    </mat-form-field>
+  
+    <!-- Optional: hidden ID field -->
+    <input type="hidden" formControlName="id" />
+  </form>
 </div>
 <div mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button color="primary">Delete</button>
+  <button mat-button color="primary" (click)="onSubmit()">{{ purposeInTitle }}</button>
 </div>

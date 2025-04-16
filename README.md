@@ -6,9 +6,16 @@ Implementation of the Boat Challange of OWT
 dotnet ef database update
 ```
 
-## Run
+## Run Dev
+
+For backend
 ```bash
 dotnet run
+```
+
+For frontend
+```bash
+ng serve
 ```
 
 ## Swagger

@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { BoatsItem } from '../boats-datasource';
 import { CommonModule } from '@angular/common';
+import { BoatItem } from '../../core/models/boat.model';
 
 export interface BoatDeleteDialogData {
-  boat: BoatsItem;
+  boat: BoatItem;
 }
 
 @Component({
@@ -15,5 +15,12 @@ export interface BoatDeleteDialogData {
   styleUrl: './boat-delete-dialog.component.scss'
 })
 export class BoatDeleteDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: BoatDeleteDialogData) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: BoatDeleteDialogData, 
+    private dialogRef: MatDialogRef<BoatDeleteDialogComponent>
+  ) {}
+
+  onDelete() {
+    this.dialogRef.close(true);
+  }
 }
