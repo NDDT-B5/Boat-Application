@@ -55,17 +55,15 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularDev", policy =>
     {
         policy.WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowCredentials();
     });
 });
 
 var app = builder.Build();
 
 UserSeeder.EnsureSeeded(app);
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -75,9 +73,13 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/openapi/BoatAPI.json", "BoatAPI");
         options.RoutePrefix = "swagger";
     });
-
     app.UseCors("AllowAngularDev");
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+
 
 app.MapControllers();
 app.UseHttpsRedirection();
