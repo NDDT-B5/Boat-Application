@@ -1,5 +1,6 @@
 using BoatApi.Data;
 using BoatApi.Services;
+using BoatApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

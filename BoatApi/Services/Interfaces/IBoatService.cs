@@ -1,6 +1,6 @@
-namespace BoatApi.Services;
+namespace BoatApi.Services.Interfaces;
 
-using Dtos;
+using DTOs.Boat;
 
 /// <summary>
 /// Interface for managing boat-related operations.

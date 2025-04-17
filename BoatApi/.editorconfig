@@ -5,7 +5,7 @@ root = true
 [*.cs]
 
 # Code style severity
-dotnet_analyzer_diagnostic.severity = warning
+dotnet_analyzer_diagnostic.severity = none
 
 # Show unused usings
 dotnet_diagnostic.IDE0005.severity = warning
@@ -39,3 +39,14 @@ dotnet_naming_style.camel_case.word_separator =
 # Only applies to C# files inside the Controllers folder
 [Controllers/*.cs]
 dotnet_diagnostic.CA1515.severity = none
+
+# Only applies to C# files inside the DTOs folder
+[DTOs/**/*.cs]
+dotnet_diagnostic.CA1515.severity = none
+
+# Only applies to C# files inside the services/interfaces folder
+[Services/Interfaces/*.cs]
+dotnet_diagnostic.CA1515.severity = none
+dotnet_diagnostic.IDE0160.severity = none
+
+
