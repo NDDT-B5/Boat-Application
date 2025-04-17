@@ -14,8 +14,6 @@ public class AuthController(ITokenService tokenService, IUserService userService
         if (userDto == null)
             return Unauthorized("Invalid username or password.");
 
-        var token = tokenService.GenerateToken(userDto);
-
-        return Ok(token);
+        return Ok(new TokenAnswerDto(tokenService.GenerateToken(userDto), userDto.Role));
     }
 }

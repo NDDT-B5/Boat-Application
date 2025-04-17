@@ -9,29 +9,28 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class BoatService {
-
-  private baseUrl = `${environment.apiBaseUrl}/boats`;
+  private apiUrl = `${environment.apiBaseUrl}/boats`;
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<BoatItem[]> {
-    return this.http.get<BoatItem[]>(this.baseUrl);
+    return this.http.get<BoatItem[]>(this.apiUrl);
   }
 
   getById(id: number): Observable<BoatItem> {
-    return this.http.get<BoatItem>(`${this.baseUrl}/${id}`);
+    return this.http.get<BoatItem>(`${this.apiUrl}/${id}`);
   }
 
   create(boat: Partial<BoatItem>): Observable<BoatItem> {
-    return this.http.post<BoatItem>(this.baseUrl, boat);
+    return this.http.post<BoatItem>(this.apiUrl, boat);
   }
 
   update(id: string, boat: Partial<BoatItem>): Observable<BoatItem> {
-    return this.http.put<BoatItem>(`${this.baseUrl}/${id}`, boat);
+    return this.http.put<BoatItem>(`${this.apiUrl}/${id}`, boat);
   }
 
   delete(id: string): Observable<void> {
     console.log("asd")
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
