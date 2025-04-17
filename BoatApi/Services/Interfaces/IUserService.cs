@@ -3,7 +3,7 @@ using BoatApi.Models;
 
 namespace BoatApi.Services.Interfaces;
 
-public interface ITokenService
+public interface IUserService
 {
-    string GenerateToken(UserDto userDto);
+    Task<UserDto?> CheckIsValidUserAndPassword(LoginDto user);
 }

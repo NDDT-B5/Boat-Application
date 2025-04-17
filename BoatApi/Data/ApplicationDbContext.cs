@@ -9,7 +9,7 @@ using Models;
 /// This class manages the connection to the database and exposes DbSet properties
 /// that allow querying and persisting data for different models in the application.
 /// </summary>
-internal sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
     /// <summary>
     /// Gets or sets the collection of <see cref="Boat"/> entities in the database.

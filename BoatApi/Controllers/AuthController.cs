@@ -5,13 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AuthController(ITokenService tokenService) : ControllerBase
+public class AuthController(ITokenService tokenService, IUserService userService) : ControllerBase
 {
     [HttpPost("login")]
-    public ActionResult Login([FromBody] LoginDto login)
+    public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
     {
+        var userDto = await userService.CheckIsValidUserAndPassword(loginDto);
+        if (userDto == null)
+            return Unauthorized("Invalid username or password.");
 
+        var token = tokenService.GenerateToken(userDto);
 
-        return Unauthorized();
+        return Ok(token);
     }
 }

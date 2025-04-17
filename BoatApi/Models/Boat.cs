@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 /// Represents a boat entity in the system, inheriting from <see cref="EntityBase"/>.
 /// Contains properties for boat details such as name and description, with validation rules applied.
 /// </summary>
-internal sealed class Boat : EntityBase
+public sealed class Boat : EntityBase
 {
     /// <summary>
     /// Gets or sets the name of the boat. The name must be between 1 and 100 characters.

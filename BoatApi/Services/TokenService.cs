@@ -1,4 +1,6 @@
-﻿namespace BoatApi.Services;
+﻿using BoatApi.DTOs.Auth;
+
+namespace BoatApi.Services;
 
 using BoatApi.Models;
 using BoatApi.Services.Interfaces;
@@ -12,12 +14,12 @@ public class TokenService : ITokenService
     private readonly IConfiguration _config;
     public TokenService(IConfiguration config) => _config = config;
 
-    public string GenerateToken(User user)
+    public string GenerateToken(UserDto userDto)
     {
         var claims = new[]
         {
-            new Claim(ClaimTypes.Name, user.Username),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            new Claim(ClaimTypes.Name, userDto.Username),
+            new Claim(ClaimTypes.NameIdentifier, userDto.Id.ToString())
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));

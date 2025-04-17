@@ -20,7 +20,7 @@ internal static class UserSeeder
         context.SaveChanges();
     }
 
-    private static string HashPassword(string password)
+    public static string HashPassword(string password)
     {
         using var sha256 = SHA256.Create();
         var bytes = Encoding.UTF8.GetBytes(password);
