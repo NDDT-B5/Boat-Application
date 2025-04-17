@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BoatApi.Services;
 
 /// <inheritdoc />
-public class BoatService : IBoatService
+internal class BoatService : IBoatService
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
