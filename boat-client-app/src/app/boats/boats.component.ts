@@ -37,6 +37,7 @@ export class BoatsComponent implements AfterViewInit {
 
   onCreate() {
     this.dialog.open(BoatEditCreateDialogComponent, {
+      autoFocus: false,
       data: {
         mode: 'add'
       }
@@ -50,6 +51,7 @@ export class BoatsComponent implements AfterViewInit {
   
   onEdit(boat: BoatItem) {
     this.dialog.open(BoatEditCreateDialogComponent, {
+      autoFocus: false,
       data: {
         mode: 'edit',
         boat: boat
@@ -64,6 +66,7 @@ export class BoatsComponent implements AfterViewInit {
   
   onDelete(boat: BoatItem) {
     this.dialog.open(BoatDeleteDialogComponent, {
+      autoFocus: false,
       data: {
         boat: boat
       }

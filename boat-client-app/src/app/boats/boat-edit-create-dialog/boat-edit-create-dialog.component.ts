@@ -8,6 +8,7 @@ import { BoatDeleteDialogComponent } from '../boat-delete-dialog/boat-delete-dia
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 export interface BoatEditCreateDialogData {
   mode: 'add' | 'edit';
@@ -22,13 +23,14 @@ export interface BoatEditCreateDialogData {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    CommonModule
+    CommonModule,
+    MatIconModule
   ],
   templateUrl: './boat-edit-create-dialog.component.html',
   styleUrl: './boat-edit-create-dialog.component.scss'
 })
 export class BoatEditCreateDialogComponent implements OnInit {
-  purposeInTitle = "";
+  isEdit: boolean = true;
   form!: FormGroup;
 
   constructor(
@@ -39,12 +41,12 @@ export class BoatEditCreateDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.purposeInTitle = this.data.mode == "edit" ? "Edit" : "Create"; 
+    this.isEdit = this.data.mode === "edit";
 
     this.form = this.fb.group({
       name: [this.data.boat?.name || '', Validators.required],
       description: [this.data.boat?.description || '', Validators.required],
-      id: [this.data.boat?.id || '']
+      id: [{ value: this.data.boat?.id ?? '', disabled: true }],
     });
   }
 

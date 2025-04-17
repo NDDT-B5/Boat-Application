@@ -3,6 +3,9 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { BoatItem } from '../../core/models/boat.model';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 export interface BoatDeleteDialogData {
   boat: BoatItem;
@@ -10,7 +13,14 @@ export interface BoatDeleteDialogData {
 
 @Component({
   selector: 'app-boat-delete-dialog',
-  imports: [MatDialogModule, MatButtonModule, CommonModule],
+  imports: [
+    MatDialogModule,
+    MatButtonModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
+  ],
   templateUrl: './boat-delete-dialog.component.html',
   styleUrl: './boat-delete-dialog.component.scss'
 })

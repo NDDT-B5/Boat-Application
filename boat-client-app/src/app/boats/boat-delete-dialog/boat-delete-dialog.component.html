@@ -1,7 +1,27 @@
-<h1 mat-dialog-title>Delete Boat</h1>
+<div class="dialog-header">
+  <h1 mat-dialog-title>Delete Boat</h1>
+  <button mat-icon-button mat-dialog-close aria-label="Close" class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 <div mat-dialog-content>
-  {{ data | json }}
-  <p>This could be your edit form...</p>
+  <p>Are you sure you want to delete the following boat?</p>
+  <form class="form-container">
+    <mat-form-field appearance="outline" class="w-full mb-4">
+      <mat-label>Boat ID</mat-label>
+      <input matInput [value]="data.boat.id" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full mb-4">
+      <mat-label>Boat Name</mat-label>
+      <input matInput [value]="data.boat.name" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full mb-4">
+      <mat-label>Description</mat-label>
+      <textarea matInput [value]="data.boat.description" rows="4" disabled></textarea>
+    </mat-form-field>
+  </form>
 </div>
 <div mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>

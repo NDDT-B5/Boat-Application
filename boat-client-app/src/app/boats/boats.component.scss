@@ -5,7 +5,15 @@
   padding: 8px 0;
 }
 
-
 .full-width-table {
   width: 100%;
+}
+
+.mat-column-actions{
+  text-align: right;
+
+  button {
+    box-shadow: none !important;
+    outline: none;
+  }
 }

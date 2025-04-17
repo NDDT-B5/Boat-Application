@@ -39,7 +39,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let row">
-        <button mat-mini-fab aria-label="Edit" (click)="onEdit(row)">
+        <button mat-mini-fab aria-label="Edit" class="mr-8" (click)="onEdit(row)">
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-mini-fab aria-label="Delete" (click)="onDelete(row)">
