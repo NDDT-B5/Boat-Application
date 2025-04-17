@@ -7,12 +7,14 @@ using AutoMapper;
 using Services.Interfaces;
 using DTOs.Boat;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 /// <summary>
 /// Controller for managing boats in the system.
 /// Handles CRUD operations related to boats.
 /// </summary>
 [Route("api/[controller]")]
+[Authorize]
 [ApiController]
 public class BoatsController(IMapper mapper, IBoatService boatService) : ControllerBase
 {

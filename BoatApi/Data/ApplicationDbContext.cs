@@ -16,4 +16,6 @@ internal sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext
     /// This property is used to perform CRUD operations on the Boats table in the database.
     /// </summary>
     public DbSet<Boat> Boats { get; set; }
+
+    public DbSet<User> Users { get; set; }
 }
