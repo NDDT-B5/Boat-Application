@@ -19,4 +19,6 @@ ng serve
 ```
 
 ## Swagger
+After starting the backend a swagger instance is running under:
+
 http://localhost:5163/swagger/index.html
