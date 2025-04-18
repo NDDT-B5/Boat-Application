@@ -1,4 +1,6 @@
 # Boat-Application
+
+## Description
 Implementation of the Boat Challange of OWT
 
 ## Setup database
@@ -22,3 +24,6 @@ ng serve
 After starting the backend a swagger instance is running under:
 
 http://localhost:5163/swagger/index.html
+
+## TODO List
+You can find the current TODO list [here](TODO.md).
