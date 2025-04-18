@@ -1,11 +1,11 @@
-namespace BoatApi.Services;
-
-using Interfaces;
 using AutoMapper;
-using Data;
-using DTOs.Boat;
-using Models;
+using BoatApi.Data;
+using BoatApi.DTOs.Boat;
+using BoatApi.Models;
+using BoatApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+
+namespace BoatApi.Services;
 
 /// <inheritdoc />
 internal sealed class BoatService(ApplicationDbContext context, IMapper mapper) : IBoatService
@@ -18,10 +18,12 @@ internal sealed class BoatService(ApplicationDbContext context, IMapper mapper) 
     }
 
     /// <inheritdoc />
-    public async Task<BoatDto?> GetBoatByIdAsync(Guid id)
+    public async Task<BoatDto> GetBoatByIdAsync(Guid id)
     {
         var boat = await context.Boats.FindAsync(id).ConfigureAwait(false);
-        return boat == null ? null : mapper.Map<BoatDto>(boat);
+        return boat == null
+            ? throw new KeyNotFoundException($"Boat with ID '{id}' was not found.") 
+            : mapper.Map<BoatDto>(boat);
     }
 
     /// <inheritdoc />
@@ -36,28 +38,25 @@ internal sealed class BoatService(ApplicationDbContext context, IMapper mapper) 
     }
 
     /// <inheritdoc />
-    public async Task<bool> UpdateBoatAsync(Guid id, UpdateBoatDto dto)
+    public async Task UpdateBoatAsync(Guid id, UpdateBoatDto dto)
     {
         var boat = await context.Boats.FindAsync(id).ConfigureAwait(false);
 
         if (boat == null)
-            return false;
+            throw new KeyNotFoundException($"Boat with ID '{id}' was not found.");
 
-        mapper.Map(dto, boat);
+        boat.Update(dto);
         await context.SaveChangesAsync().ConfigureAwait(false);
-
-        return true;
     }
 
     /// <inheritdoc />
-    public async Task<bool> DeleteBoatAsync(Guid id)
+    public async Task DeleteBoatAsync(Guid id)
     {
         var boatToDelete = await context.Boats.FindAsync(id).ConfigureAwait(false);
         if (boatToDelete == null)
-            return false;
+            throw new KeyNotFoundException($"Boat with ID '{id}' was not found.");
 
         context.Boats.Remove(boatToDelete);
         await context.SaveChangesAsync().ConfigureAwait(false);
-        return true;
     }
 }

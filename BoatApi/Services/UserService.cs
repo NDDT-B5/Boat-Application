@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
 using BoatApi.Data;
 using BoatApi.DTOs.Auth;
-using BoatApi.DTOs.Boat;
-using BoatApi.Models;
-using BoatApi.Seeder;
 using BoatApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BoatApi.Services;
 
-public class UserService(ApplicationDbContext context, IMapper mapper) : IUserService
+/// <inheritdoc />
+internal sealed class UserService(ApplicationDbContext context, IMapper mapper, IPasswordService passwordService) : IUserService
 {
+    /// <inheritdoc />
     public async Task<UserDto?> CheckIsValidUserAndPassword(LoginDto loginDto)
     {
         var user = await context.Users
@@ -19,7 +18,7 @@ public class UserService(ApplicationDbContext context, IMapper mapper) : IUserSe
         if (user == null)
             return null;
 
-        var hashedPassword = UserSeeder.HashPassword(loginDto.Password);
+        var hashedPassword = passwordService.HashPassword(loginDto.Password);
 
         return user.PasswordHash != hashedPassword ? null : mapper.Map<UserDto>(user);
     }

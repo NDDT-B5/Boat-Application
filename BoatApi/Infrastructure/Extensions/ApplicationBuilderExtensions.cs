@@ -1,4 +1,6 @@
-﻿namespace BoatApi.Infrastructure.Extensions;
+﻿using BoatApi.Infrastructure.Middleware;
+
+namespace BoatApi.Infrastructure.Extensions;
 
 /// <summary>
 /// Provides extension methods for configuring the HTTP request pipeline in the Boat API application.
@@ -33,5 +35,10 @@ internal static class ApplicationBuilderExtensions
         {
             app.UseCors("AllowAngularDev");
         }
+    }
+
+    public static void UseMiddleware(this WebApplication app)
+    {
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
     }
 }

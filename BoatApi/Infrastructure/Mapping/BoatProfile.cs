@@ -1,4 +1,4 @@
-namespace BoatApi.Mapping;
+namespace BoatApi.Infrastructure.Mapping;
 
 using AutoMapper;
 using Models;

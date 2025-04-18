@@ -1,6 +1,6 @@
-namespace BoatApi.Services.Interfaces;
+using BoatApi.DTOs.Boat;
 
-using DTOs.Boat;
+namespace BoatApi.Services.Interfaces;
 
 /// <summary>
 /// Interface for managing boat-related operations.
@@ -19,7 +19,7 @@ public interface IBoatService
     /// </summary>
     /// <param name="id">The unique identifier of the boat to retrieve.</param>
     /// <returns>A task representing the asynchronous operation. The result is the <see cref="BoatDto"/> if found, or <c>null</c> if no boat is found with the specified <paramref name="id"/>.</returns>
-    Task<BoatDto?> GetBoatByIdAsync(Guid id);
+    Task<BoatDto> GetBoatByIdAsync(Guid id);
 
     /// <summary>
     /// Asynchronously retrieves all boats.
@@ -33,12 +33,12 @@ public interface IBoatService
     /// <param name="id">The unique identifier of the boat to update.</param>
     /// <param name="command">The <see cref="UpdateBoatDto"/> containing the updated boat details.</param>
     /// <returns>A task representing the asynchronous operation. The result is <c>true</c> if the boat was successfully updated, otherwise <c>false</c>.</returns>
-    Task<bool> UpdateBoatAsync(Guid id, UpdateBoatDto command);
+    Task UpdateBoatAsync(Guid id, UpdateBoatDto command);
 
     /// <summary>
     /// Asynchronously deletes a boat by its unique identifier.
     /// </summary>
     /// <param name="id">The unique identifier of the boat to delete.</param>
     /// <returns>A task representing the asynchronous operation. The result is <c>true</c> if the boat was successfully deleted, otherwise <c>false</c>.</returns>
-    Task<bool> DeleteBoatAsync(Guid id);
+    Task DeleteBoatAsync(Guid id);
 }

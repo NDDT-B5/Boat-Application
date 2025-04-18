@@ -1,5 +1,5 @@
-using BoatApi.Seeder;
 using BoatApi.Infrastructure.Extensions;
+using BoatApi.Infrastructure.Seeder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +18,7 @@ UserSeeder.EnsureSeeded(app);
 
 app.UseOpenApi();
 app.UseCorsPolicy();
+app.UseMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

@@ -18,6 +18,7 @@ internal static class ServiceRegistration
         services.AddScoped<IBoatService, BoatService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IPasswordService, PasswordService>();
 
         return services;
     }

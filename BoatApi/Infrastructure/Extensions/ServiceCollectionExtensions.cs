@@ -12,7 +12,6 @@ namespace BoatApi.Infrastructure.Extensions;
 /// </summary>
 internal static class ServiceCollectionExtensions
 {
-
     /// <summary>
     /// Adds JWT authentication configuration to the service collection.
     /// </summary>

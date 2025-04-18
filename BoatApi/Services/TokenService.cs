@@ -1,19 +1,16 @@
-﻿using BoatApi.DTOs.Auth;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using BoatApi.DTOs.Auth;
+using BoatApi.Services.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BoatApi.Services;
 
-using BoatApi.Models;
-using BoatApi.Services.Interfaces;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
-public class TokenService : ITokenService
+/// <inheritdoc />
+internal sealed class TokenService(IConfiguration config) : ITokenService
 {
-    private readonly IConfiguration _config;
-    public TokenService(IConfiguration config) => _config = config;
-
+    /// <inheritdoc />
     public string GenerateToken(UserDto userDto)
     {
         var claims = new[]
@@ -22,15 +19,15 @@ public class TokenService : ITokenService
             new Claim(ClaimTypes.NameIdentifier, userDto.Id.ToString())
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            _config["Jwt:Issuer"],
-            _config["Jwt:Issuer"],
+            config["Jwt:Issuer"],
+            config["Jwt:Issuer"],
             claims,
             expires: DateTime.Now.AddHours(1),
-            signingCredentials: creds
+            signingCredentials: credentials
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);

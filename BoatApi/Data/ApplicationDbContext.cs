@@ -1,7 +1,7 @@
-namespace BoatApi.Data;
-
+using BoatApi.Models;
 using Microsoft.EntityFrameworkCore;
-using Models;
+
+namespace BoatApi.Data;
 
 /// <summary>
 /// Represents the database context for the Boat API application.
@@ -9,7 +9,7 @@ using Models;
 /// This class manages the connection to the database and exposes DbSet properties
 /// that allow querying and persisting data for different models in the application.
 /// </summary>
-public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+internal sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
     /// <summary>
     /// Gets or sets the collection of <see cref="Boat"/> entities in the database.
