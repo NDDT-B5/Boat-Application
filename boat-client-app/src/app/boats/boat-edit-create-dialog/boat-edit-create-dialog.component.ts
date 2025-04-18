@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { BoatItem } from '../../core/models/boat.model';
+import { BoatDto } from '../../core/models/boat.model';
 import { BoatDeleteDialogComponent } from '../boat-delete-dialog/boat-delete-dialog.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 export interface BoatEditCreateDialogData {
   mode: 'add' | 'edit';
-  boat: BoatItem;
+  boat: BoatDto;
 }
 
 @Component({

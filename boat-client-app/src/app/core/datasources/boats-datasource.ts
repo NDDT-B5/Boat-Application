@@ -3,9 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, merge, BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BoatItem } from '../models/boat.model';
+import { BoatDto } from '../models/boat.model';
 import { BoatService } from '../services/boat.service';
 
 /**
@@ -16,12 +15,12 @@ import { BoatService } from '../services/boat.service';
 @Injectable({
   providedIn: 'root'
 })
-export class BoatsDataSource extends DataSource<BoatItem> {
+export class BoatsDataSource extends DataSource<BoatDto> {
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
-  dataLoaded$ = new BehaviorSubject<BoatItem[]>([]);
+  dataLoaded$ = new BehaviorSubject<BoatDto[]>([]);
 
-  constructor(private http: HttpClient, private boatService: BoatService) {
+  constructor(private boatService: BoatService) {
     super();
     this.loadBoats();
   }
@@ -32,13 +31,13 @@ export class BoatsDataSource extends DataSource<BoatItem> {
     });
   }
 
-  addBoat(newBoat: BoatItem): void {
+  addBoat(newBoat: BoatDto): void {
     const currentBoats = this.dataLoaded$.getValue();
     const updatedBoats = [...currentBoats, newBoat];
     this.dataLoaded$.next(updatedBoats);
   }
 
-  updateBoat(updatedBoat: BoatItem): void {
+  updateBoat(updatedBoat: BoatDto): void {
     const currentBoats = this.dataLoaded$.getValue();
     const updatedBoats = currentBoats.map(boat =>
       boat.id === updatedBoat.id ? updatedBoat : boat
@@ -51,7 +50,7 @@ export class BoatsDataSource extends DataSource<BoatItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<BoatItem[]> {
+  connect(): Observable<BoatDto[]> {
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
@@ -74,7 +73,7 @@ export class BoatsDataSource extends DataSource<BoatItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: BoatItem[]): BoatItem[] {
+  private getPagedData(data: BoatDto[]): BoatDto[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -87,7 +86,7 @@ export class BoatsDataSource extends DataSource<BoatItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: BoatItem[]): BoatItem[] {
+  private getSortedData(data: BoatDto[]): BoatDto[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }

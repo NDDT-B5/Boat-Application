@@ -1,4 +1,4 @@
-export interface BoatItem {
+export interface BoatDto {
     name: string;
     description: string;
     id: string;

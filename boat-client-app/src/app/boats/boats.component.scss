@@ -21,3 +21,12 @@
     outline: none;
   }
 }
+
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.clickable-row:hover {
+  background-color: rgb(215, 227, 255);
+}

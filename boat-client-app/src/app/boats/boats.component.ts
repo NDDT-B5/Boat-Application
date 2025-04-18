@@ -8,8 +8,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BoatDeleteDialogComponent } from './boat-delete-dialog/boat-delete-dialog.component';
 import { BoatEditCreateDialogComponent } from './boat-edit-create-dialog/boat-edit-create-dialog.component';
 import { BoatsDataSource } from '../core/datasources/boats-datasource';
-import { BoatItem } from '../core/models/boat.model';
+import { BoatDto } from '../core/models/boat.model';
 import { BoatService } from '../core/services/boat.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-boats',
@@ -20,12 +21,13 @@ import { BoatService } from '../core/services/boat.service';
 export class BoatsComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<BoatItem>;
+  @ViewChild(MatTable) table!: MatTable<BoatDto>;
 
   constructor(
     public dataSource: BoatsDataSource,
     private dialog: MatDialog,
-    private boatService: BoatService) {}
+    private boatService: BoatService,
+    private router: Router) {}
 
   displayedColumns = ['id', 'name', 'desc', 'actions'];
 
@@ -49,7 +51,7 @@ export class BoatsComponent implements AfterViewInit {
     });
   }
   
-  onEdit(boat: BoatItem) {
+  onEdit(boat: BoatDto) {
     this.dialog.open(BoatEditCreateDialogComponent, {
       autoFocus: false,
       data: {
@@ -64,7 +66,7 @@ export class BoatsComponent implements AfterViewInit {
     });
   }
   
-  onDelete(boat: BoatItem) {
+  onDelete(boat: BoatDto) {
     this.dialog.open(BoatDeleteDialogComponent, {
       autoFocus: false,
       data: {
@@ -81,5 +83,9 @@ export class BoatsComponent implements AfterViewInit {
   onDeleteMany() {
     this.dialog.open(BoatDeleteDialogComponent);
     console.log("Delete Many clicked");
+  }
+
+  onRowClick(boat: BoatDto) {
+    this.router.navigate(['/boats', boat.id], { state: { boat } });
   }
 }

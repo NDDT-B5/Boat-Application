@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BoatItem } from '../models/boat.model'; 
+import { BoatDto } from '../models/boat.model'; 
 import { environment } from '../../../environments/environment';
 
 
@@ -13,24 +13,23 @@ export class BoatService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<BoatItem[]> {
-    return this.http.get<BoatItem[]>(this.apiUrl);
+  getAll(): Observable<BoatDto[]> {
+    return this.http.get<BoatDto[]>(this.apiUrl);
   }
 
-  getById(id: number): Observable<BoatItem> {
-    return this.http.get<BoatItem>(`${this.apiUrl}/${id}`);
+  getById(id: string): Observable<BoatDto> {
+    return this.http.get<BoatDto>(`${this.apiUrl}/${id}`);
   }
 
-  create(boat: Partial<BoatItem>): Observable<BoatItem> {
-    return this.http.post<BoatItem>(this.apiUrl, boat);
+  create(boat: Partial<BoatDto>): Observable<BoatDto> {
+    return this.http.post<BoatDto>(this.apiUrl, boat);
   }
 
-  update(id: string, boat: Partial<BoatItem>): Observable<BoatItem> {
-    return this.http.put<BoatItem>(`${this.apiUrl}/${id}`, boat);
+  update(id: string, boat: Partial<BoatDto>): Observable<BoatDto> {
+    return this.http.put<BoatDto>(`${this.apiUrl}/${id}`, boat);
   }
 
   delete(id: string): Observable<void> {
-    console.log("asd")
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
