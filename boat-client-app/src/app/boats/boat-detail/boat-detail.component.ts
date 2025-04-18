@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { BoatDto } from '../../core/models/boat.model';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,15 +29,16 @@ export class BoatDetailComponent {
     }
 
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.boatService.getById(id).subscribe({
-        next: (boat) => this.boat = boat,
-        error: () => {
-          console.warn('Boat not found or failed to fetch.');
-        }
-      });
-    } else {
+    if (!id) {
       console.warn('No boat data or ID provided.');
+      return;
     }
+
+    this.boatService.getById(id).subscribe({
+      next: (boat) => this.boat = boat,
+      error: () => {
+        console.warn('Boat not found or failed to fetch.');
+      }
+    });
   }
 }

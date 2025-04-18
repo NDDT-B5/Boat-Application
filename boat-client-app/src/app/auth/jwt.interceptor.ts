@@ -5,10 +5,10 @@ import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
+  const router = inject(Router);
   const authService = inject(AuthService);
   const token = authService.getToken();
-  const router = inject(Router);
-  
+
   if (token) {
     const clonedRequest = req.clone({
       setHeaders: {
@@ -18,9 +18,8 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
     return next(clonedRequest).pipe(
       catchError((error) => {
         if (error.status === 401) {
-          // Token is expired or invalid
           authService.removeToken();
-          router.navigate(['/login']);  // Redirect to login page
+          router.navigate(['/login']);
         }
         return throwError(() => error);
       })

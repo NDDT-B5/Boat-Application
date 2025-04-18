@@ -10,11 +10,7 @@ describe('NavigationComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NavigationComponent],
       imports: [
-        MatButtonModule,
-        MatIconModule,
-        MatListModule,
-        MatSidenavModule,
-        MatToolbarModule,
+        NavigationComponent
       ]
     });
   }));
