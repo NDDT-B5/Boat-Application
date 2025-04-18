@@ -1,0 +1,51 @@
+.login-wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/login-bg.jpg') no-repeat center center;
+    background-size: cover;
+  }
+
+  a {
+    text-align: center;
+
+    img {
+        width: 200px;
+    }
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+  
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+  
+    .full-width {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  
+    .test-crendentials, .text-danger {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+
+      span {
+        color: rgb(0, 92, 187);
+        text-decoration: none;
+      }
+    }
+
+    .text-danger {
+        color: rgb(187, 0, 0);
+    }
+  }

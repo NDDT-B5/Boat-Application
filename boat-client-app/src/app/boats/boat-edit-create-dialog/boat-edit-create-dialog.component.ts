@@ -3,7 +3,6 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { BoatItem } from '../../core/models/boat.model';
-import { BoatService } from '../../core/services/boat.service';
 import { BoatDeleteDialogComponent } from '../boat-delete-dialog/boat-delete-dialog.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -36,7 +35,6 @@ export class BoatEditCreateDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: BoatEditCreateDialogData, 
-    private boatService: BoatService,
     private dialogRef: MatDialogRef<BoatDeleteDialogComponent>
   ) {}
 
