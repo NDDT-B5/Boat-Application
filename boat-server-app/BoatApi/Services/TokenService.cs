@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace BoatApi.Services;
 
 /// <inheritdoc />
-internal sealed class TokenService(IConfiguration config) : ITokenService
+public sealed class TokenService(IConfiguration config) : ITokenService
 {
     /// <inheritdoc />
     public string GenerateToken(UserDto userDto)

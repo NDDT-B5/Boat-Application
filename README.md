@@ -10,7 +10,7 @@ dotnet ef database update
 
 ## Run Dev
 
-For backend
+For backend use Visual Studio or
 ```bash
 dotnet run
 ```
@@ -23,7 +23,7 @@ ng serve
 ## Swagger
 After starting the backend a swagger instance is running under:
 
-http://localhost:5163/swagger/index.html
+https://localhost:7033/swagger/index.html
 
 ## TODO List
 You can find the current TODO list [here](TODO.md).
