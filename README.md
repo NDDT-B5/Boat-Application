@@ -27,3 +27,10 @@ http://localhost:5163/swagger/index.html
 
 ## TODO List
 You can find the current TODO list [here](TODO.md).
+
+## Testing
+
+40 Tests are implemented for the frontend. Execute with:
+```bash
+ng test
+```

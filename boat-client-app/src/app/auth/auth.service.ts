@@ -22,7 +22,8 @@ export class AuthService {
       .post<AuthResponse>(`${this.apiUrl}/login`, { username, password })
       .pipe(
         catchError((error) => {
-          throw new Error(error);
+          const message = error?.error?.message || error?.message || 'An unknown error occurred';
+          throw new Error(message);
         })
       );
   }

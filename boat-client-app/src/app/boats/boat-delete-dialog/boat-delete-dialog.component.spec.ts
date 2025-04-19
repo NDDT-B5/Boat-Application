@@ -18,7 +18,6 @@ describe('BoatDeleteDialogComponent', () => {
     mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
 
     await TestBed.configureTestingModule({
-      imports: [BoatDeleteDialogComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: { boat: boatMock } as BoatDeleteDialogData },
         { provide: MatDialogRef, useValue: mockDialogRef }
