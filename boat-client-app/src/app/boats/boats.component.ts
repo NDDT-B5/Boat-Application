@@ -77,7 +77,10 @@ export class BoatsComponent implements AfterViewInit {
     }).afterClosed()
     .subscribe((result) => {
       if (result) {
-        this.boatService.delete(boat.id).subscribe(_ => this.dataSource.deleteBoat(boat.id));
+        this.boatService.delete(boat.id).subscribe({
+          next: () => this.dataSource.deleteBoat(boat.id),
+          error: () => console.warn('Failed to delete boat.')
+        });
       }
     });
   }

@@ -3,10 +3,12 @@ import { BoatDto } from '../../core/models/boat.model';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoatService } from '../../core/services/boat.service';
+import { BoatsDataSource } from '../../core/datasources/boats-datasource';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-boat-detail',
-  imports: [ CommonModule ],
+  imports: [ CommonModule, MatButtonModule ],
   templateUrl: './boat-detail.component.html',
   styleUrl: './boat-detail.component.scss'
 })
@@ -16,7 +18,8 @@ export class BoatDetailComponent {
   constructor(
     private router: Router,
     private boatService: BoatService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dataSource: BoatsDataSource
   ) {}
 
   ngOnInit() {
@@ -40,5 +43,22 @@ export class BoatDetailComponent {
         console.warn('Boat not found or failed to fetch.');
       }
     });
+  }
+
+  deleteBoat() {
+    if (!this.boat) return;
+  
+    this.boatService.delete(this.boat.id).subscribe({
+      next: () => {
+        if (this.boat)
+          this.dataSource.deleteBoat(this.boat.id);
+        this.router.navigate(['/boats']);
+      },
+      error: () => console.warn('Failed to delete boat.')
+    });
+  }
+  
+  goBack() {
+    this.router.navigate(['/boats']);
   }
 }

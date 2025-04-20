@@ -1,14 +1,9 @@
 <mat-toolbar>
-  <a href="/boats">
+  <a [routerLink]="['/boats']">
     <img src="/logo.png" alt="Boating App Logo"/>
   </a>
 
-  <button mat-icon-button class="icon favorite-icon" aria-label="icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="icon" aria-label="icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
+  <a mat-button [routerLink]="['/boats']">Boats</a>
 
   <span class="spacer"></span>
 
