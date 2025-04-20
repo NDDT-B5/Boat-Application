@@ -9,6 +9,7 @@ dotnet ef database update
 ```
 
 ## Run Dev
+There are Seeders in place that will initialize the Database with 3 Users and 16 boats if the Database is empty.
 
 For backend use Visual Studio or
 ```bash

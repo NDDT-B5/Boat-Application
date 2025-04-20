@@ -50,7 +50,8 @@ export class BoatEditCreateDialogComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.dialogRef.close(this.form.value);
+      const formData = { ...this.form.value, id: this.data.boat?.id };
+      this.dialogRef.close(formData);
     }
   }
 }

@@ -51,7 +51,8 @@ export class BoatsComponent implements AfterViewInit {
     });
   }
   
-  onEdit(boat: BoatDto) {
+  onEdit(boat: BoatDto, event: MouseEvent) {
+    event.stopPropagation();
     this.dialog.open(BoatEditCreateDialogComponent, {
       autoFocus: false,
       data: {
@@ -66,7 +67,8 @@ export class BoatsComponent implements AfterViewInit {
     });
   }
   
-  onDelete(boat: BoatDto) {
+  onDelete(boat: BoatDto, event: MouseEvent) {
+    event.stopPropagation();
     this.dialog.open(BoatDeleteDialogComponent, {
       autoFocus: false,
       data: {
@@ -75,7 +77,7 @@ export class BoatsComponent implements AfterViewInit {
     }).afterClosed()
     .subscribe((result) => {
       if (result) {
-        this.boatService.delete(boat.id).subscribe();
+        this.boatService.delete(boat.id).subscribe(_ => this.dataSource.deleteBoat(boat.id));
       }
     });
   }
