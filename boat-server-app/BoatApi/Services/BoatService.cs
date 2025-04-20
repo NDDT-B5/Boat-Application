@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BoatApi.Services;
 
 /// <inheritdoc />
-internal sealed class BoatService(ApplicationDbContext context, IMapper mapper) : IBoatService
+public sealed class BoatService(ApplicationDbContext context, IMapper mapper) : IBoatService
 {
     /// <inheritdoc />
     public async Task<IEnumerable<BoatDto>> GetAllBoatsAsync()

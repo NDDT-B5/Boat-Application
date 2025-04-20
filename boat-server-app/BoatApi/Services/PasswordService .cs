@@ -5,7 +5,7 @@ using BoatApi.Services.Interfaces;
 namespace BoatApi.Services;
 
 /// <inheritdoc />
-internal sealed class PasswordService : IPasswordService
+public sealed class PasswordService : IPasswordService
 {
     /// <inheritdoc />
     public string HashPassword(string password)

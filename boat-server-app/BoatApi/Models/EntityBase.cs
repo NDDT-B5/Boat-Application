@@ -4,7 +4,7 @@ namespace BoatApi.Models;
 /// Represents the base entity for all models in the application that require an ID, creation date, and last modified date.
 /// This class provides common properties for entities in the system and handles automatic tracking of creation and modification timestamps.
 /// </summary>
-internal abstract class EntityBase
+public abstract class EntityBase
 {
     /// <summary>
     /// Gets the unique identifier for this entity.

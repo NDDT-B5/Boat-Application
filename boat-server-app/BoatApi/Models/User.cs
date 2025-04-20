@@ -6,7 +6,7 @@ namespace BoatApi.Models;
 /// Represents a user entity in the system.
 /// Inherits from <see cref="EntityBase"/> which contains common fields like ID and timestamps.
 /// </summary>
-internal sealed class User(string username, string email, string passwordHash, string role) : EntityBase
+public sealed class User(string username, string email, string passwordHash, string role) : EntityBase
 {
     /// <summary>
     /// Gets the username of the user.

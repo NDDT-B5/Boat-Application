@@ -19,6 +19,5 @@ internal sealed class BoatProfile : Profile
     {
         CreateMap<Boat, BoatDto>();
         CreateMap<CreateBoatDto, Boat>();
-        CreateMap<UpdateBoatDto, Boat>();
     }
 }

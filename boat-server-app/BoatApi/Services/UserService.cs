@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BoatApi.Services;
 
 /// <inheritdoc />
-internal sealed class UserService(ApplicationDbContext context, IMapper mapper, IPasswordService passwordService) : IUserService
+public sealed class UserService(ApplicationDbContext context, IMapper mapper, IPasswordService passwordService) : IUserService
 {
     /// <inheritdoc />
     public async Task<UserDto?> CheckIsValidUserAndPassword(LoginDto loginDto)
