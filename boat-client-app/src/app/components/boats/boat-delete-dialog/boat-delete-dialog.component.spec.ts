@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BoatDeleteDialogComponent, BoatDeleteDialogData } from './boat-delete-dialog.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BoatDto } from '../../core/models/boat.model';
+import { BoatDto } from '../../../shared/models/boat.model';
 
 describe('BoatDeleteDialogComponent', () => {
   let component: BoatDeleteDialogComponent;

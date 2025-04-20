@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BoatEditCreateDialogComponent } from './boat-edit-create-dialog.component';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { BoatDto } from '../../core/models/boat.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BoatDto } from '../../../shared/models/boat.model';
 
 describe('BoatEditCreateDialogComponent', () => {
   let component: BoatEditCreateDialogComponent;

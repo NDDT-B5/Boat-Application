@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { BoatService } from './boat.service';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { environment } from '../../../environments/environment';
-import { BoatDto } from '../models/boat.model';
 import { provideHttpClient } from '@angular/common/http';
+import { BoatDto } from '../../shared/models/boat.model';
 
 describe('BoatService', () => {
   let service: BoatService;
