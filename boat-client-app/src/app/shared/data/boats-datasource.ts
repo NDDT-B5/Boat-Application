@@ -4,8 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, merge, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { BoatService } from '../../core/services/boat.service';
 import { BoatDto } from '../models/boat.model';
-import { BoatService } from '../services/boat.service';
 
 /**
  * Data source for the Boats view. This class should

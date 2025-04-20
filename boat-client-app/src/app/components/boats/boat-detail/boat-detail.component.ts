@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { BoatDto } from '../../core/models/boat.model';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BoatService } from '../../core/services/boat.service';
-import { BoatsDataSource } from '../../core/datasources/boats-datasource';
 import { MatButtonModule } from '@angular/material/button';
+import { BoatDto } from '../../../shared/models/boat.model';
+import { BoatService } from '../../../core/services/boat.service';
+import { BoatsDataSource } from '../../../shared/data/boats-datasource';
 
 @Component({
   selector: 'app-boat-detail',

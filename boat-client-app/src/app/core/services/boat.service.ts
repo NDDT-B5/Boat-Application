@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BoatDto } from '../models/boat.model'; 
 import { environment } from '../../../environments/environment';
+import { BoatDto } from '../../shared/models/boat.model';
 
 
 @Injectable({

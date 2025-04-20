@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { BoatsComponent } from './boats/boats.component';
-import { LoginComponent } from './auth/login/login.component';
-import { authGuard } from './auth/auth.guard';
-import { BoatDetailComponent } from './boats/boat-detail/boat-detail.component';
+import { LoginComponent } from './components/login/login.component';
+import { authGuard } from './core/auth/auth.guard';
+import { BoatDetailComponent } from './components/boats/boat-detail/boat-detail.component';
+import { BoatsComponent } from './components/boats/boats.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },

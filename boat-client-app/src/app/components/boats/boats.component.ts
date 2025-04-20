@@ -7,10 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BoatDeleteDialogComponent } from './boat-delete-dialog/boat-delete-dialog.component';
 import { BoatEditCreateDialogComponent } from './boat-edit-create-dialog/boat-edit-create-dialog.component';
-import { BoatsDataSource } from '../core/datasources/boats-datasource';
-import { BoatDto } from '../core/models/boat.model';
-import { BoatService } from '../core/services/boat.service';
 import { Router } from '@angular/router';
+import { BoatsDataSource } from '../../shared/data/boats-datasource';
+import { BoatDto } from '../../shared/models/boat.model';
+import { BoatService } from '../../core/services/boat.service';
 
 @Component({
   selector: 'app-boats',

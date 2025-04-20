@@ -1,8 +1,8 @@
 import { Component, computed, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { NavigationComponent } from './shared/navigation/navigation.component';
 import { filter } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @Component({
   selector: 'app-root',
