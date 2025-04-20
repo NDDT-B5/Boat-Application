@@ -5,3 +5,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mr-8 { margin-right: 8px; }
 .mr-16 { margin-right: 16px; }
 .mr-24 { margin-right: 24px; }
+
+.success-snackbar.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+    background-color: rgb(0, 88, 0);
+    color: white;
+}
+  
+.error-snackbar {
+    background-color: rgb(157, 0, 0);
+    color: white;
+}
+
+.info-snackbar {
+    background-color: rgb(40, 40, 192);
+    color: white;
+}

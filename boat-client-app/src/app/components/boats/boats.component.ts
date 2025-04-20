@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { BoatsDataSource } from '../../shared/data/boats-datasource';
 import { BoatDto } from '../../shared/models/boat.model';
 import { BoatService } from '../../core/services/boat.service';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-boats',
@@ -27,7 +28,8 @@ export class BoatsComponent implements AfterViewInit {
     public dataSource: BoatsDataSource,
     private dialog: MatDialog,
     private boatService: BoatService,
-    private router: Router) {}
+    private router: Router,
+    private snackBarService: SnackbarService) {}
 
   displayedColumns = ['id', 'name', 'desc', 'actions'];
 
@@ -46,7 +48,10 @@ export class BoatsComponent implements AfterViewInit {
     }).afterClosed()
     .subscribe(result => {
       if (result) {
-        this.boatService.create(result).subscribe(newBoat => this.dataSource.addBoat(newBoat));
+        this.boatService.create(result).subscribe(newBoat => {
+          this.dataSource.addBoat(newBoat);
+          this.snackBarService.showSuccess(`New Boat "${newBoat.name}" added successfully!`);
+        });
       }
     });
   }
@@ -62,7 +67,15 @@ export class BoatsComponent implements AfterViewInit {
     }).afterClosed()
     .subscribe(result => {
       if (result) {
-        this.boatService.update(result.id, result).subscribe(_ => this.dataSource.updateBoat(result));
+        this.boatService.update(result.id, result).subscribe({
+          next: () => {
+            this.dataSource.updateBoat(result);
+            this.snackBarService.showSuccess(`Boat with id ${boat.id} updated successfully!`);
+          },
+          error: () => {
+            this.snackBarService.showError(`Failed to update boat with id ${boat.id}!`);
+          }
+        });
       }
     });
   }
@@ -78,8 +91,13 @@ export class BoatsComponent implements AfterViewInit {
     .subscribe((result) => {
       if (result) {
         this.boatService.delete(boat.id).subscribe({
-          next: () => this.dataSource.deleteBoat(boat.id),
-          error: () => console.warn('Failed to delete boat.')
+          next: () => {
+            this.dataSource.deleteBoat(boat.id);
+            this.snackBarService.showSuccess(`Boat with id ${boat.id} deleted successfully!`);
+          },
+          error: () => {
+            this.snackBarService.showError(`Failed to delete boat with id ${boat.id}!`);
+          }
         });
       }
     });

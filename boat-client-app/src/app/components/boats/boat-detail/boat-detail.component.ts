@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BoatDto } from '../../../shared/models/boat.model';
 import { BoatService } from '../../../core/services/boat.service';
 import { BoatsDataSource } from '../../../shared/data/boats-datasource';
+import { SnackbarService } from '../../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-boat-detail',
@@ -19,7 +20,8 @@ export class BoatDetailComponent {
     private router: Router,
     private boatService: BoatService,
     private route: ActivatedRoute,
-    public dataSource: BoatsDataSource
+    private dataSource: BoatsDataSource,
+    private snackBarService: SnackbarService
   ) {}
 
   ngOnInit() {
@@ -33,14 +35,14 @@ export class BoatDetailComponent {
 
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
-      console.warn('No boat data or ID provided.');
+      this.snackBarService.showError('No boat data or ID provided.');
       return;
     }
 
     this.boatService.getById(id).subscribe({
       next: (boat) => this.boat = boat,
       error: () => {
-        console.warn('Boat not found or failed to fetch.');
+        this.snackBarService.showError('Boat not found or failed to fetch.');
       }
     });
   }
@@ -50,11 +52,15 @@ export class BoatDetailComponent {
   
     this.boatService.delete(this.boat.id).subscribe({
       next: () => {
-        if (this.boat)
+        if (this.boat) {
           this.dataSource.deleteBoat(this.boat.id);
+          this.snackBarService.showSuccess(`Boat with id ${this.boat.id} deleted successfully!`);
+        }
         this.router.navigate(['/boats']);
       },
-      error: () => console.warn('Failed to delete boat.')
+      error: () => {
+        this.snackBarService.showError('Failed to delete boat!');
+      }
     });
   }
   
