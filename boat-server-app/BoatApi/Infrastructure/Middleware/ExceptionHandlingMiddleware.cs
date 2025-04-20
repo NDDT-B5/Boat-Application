@@ -1,6 +1,6 @@
 ﻿namespace BoatApi.Infrastructure.Middleware;
 
-internal sealed class ExceptionHandlingMiddleware(RequestDelegate next)
+public sealed class ExceptionHandlingMiddleware(RequestDelegate next)
 {
     public async Task InvokeAsync(HttpContext httpContext)
     {

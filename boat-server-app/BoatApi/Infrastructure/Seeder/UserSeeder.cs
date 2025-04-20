@@ -7,7 +7,7 @@ namespace BoatApi.Infrastructure.Seeder;
 /// <summary>
 /// Seeding default users into the database.
 /// </summary>
-internal static class UserSeeder
+public static class UserSeeder
 {
     /// <summary>
     /// Ensures the database is seeded with default users if none exist.

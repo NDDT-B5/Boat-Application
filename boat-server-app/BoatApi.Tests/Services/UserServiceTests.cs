@@ -67,6 +67,7 @@ public class UserServiceTests
 
         // Assert
         Assert.Null(result);
+        _mockPasswordService.Verify(s => s.HashPassword("wrongPass"), Times.Once);
     }
 
     [Fact]
@@ -90,5 +91,7 @@ public class UserServiceTests
         // Assert
         Assert.NotNull(result);
         Assert.Equal(user.Username, result.Username);
+
+        _mockPasswordService.Verify(s => s.HashPassword("password123"), Times.Once);
     }
 }

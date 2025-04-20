@@ -14,7 +14,7 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-UserSeeder.EnsureSeeded(app);
+AppSeeder.EnsureSeeded(app);
 
 app.UseOpenApi();
 app.UseCorsPolicy();
