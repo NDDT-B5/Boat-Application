@@ -6,9 +6,6 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { of, Subject } from 'rxjs';
 import { BoatsDataSource } from '../../shared/data/boats-datasource';
 import { BoatDto } from '../../shared/models/boat.model';
-import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { HarnessLoader } from '@angular/cdk/testing';
-import { BoatEditCreateDialogComponent } from './boat-edit-create-dialog/boat-edit-create-dialog.component';
 import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { SnackbarService } from '../../core/services/snackbar.service';
 
@@ -20,7 +17,7 @@ describe('BoatsComponent', () => {
   let snackbarServiceSpy: jasmine.SpyObj<SnackbarService>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
   let routerSpy: jasmine.SpyObj<Router>;
-  let loader: HarnessLoader;
+
 
   const mockBoat: BoatDto = { id: "1", name: 'Titanic', description: 'Big boat' };
 
@@ -44,7 +41,6 @@ describe('BoatsComponent', () => {
     fixture = TestBed.createComponent(BoatsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    loader = TestbedHarnessEnvironment.documentRootLoader(fixture);
   });
 
   it('should create', () => {
@@ -56,8 +52,8 @@ describe('BoatsComponent', () => {
     spyOn(component.dataSource, 'addBoat');
 
     component.onCreate();
-    let dialogs = await loader.getAllHarnesses(MatDialogHarness);
-    dialogs[0].close();
+
+
     tick();
 
     expect(boatServiceSpy.create).toHaveBeenCalledWith(mockBoat);

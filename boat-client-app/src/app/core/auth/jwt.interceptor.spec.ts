@@ -4,6 +4,7 @@ import { jwtInterceptor } from './jwt.interceptor';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { of } from 'rxjs';
 
 describe('jwtInterceptor', () => {
   let http: HttpClient;
@@ -15,7 +16,7 @@ describe('jwtInterceptor', () => {
     TestBed.runInInjectionContext(() => jwtInterceptor(req, next));
 
   beforeEach(() => {
-    authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['getToken', 'removeToken']);
+    authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['removeToken', 'getTokenObservable']);
     routerSpy = jasmine.createSpyObj<Router>('Router', ['navigate']);
 
     TestBed.configureTestingModule({
@@ -41,7 +42,7 @@ describe('jwtInterceptor', () => {
   });
 
   it('should add Authorization header if token exists', () => {
-    authServiceSpy.getToken.and.returnValue('test-token');
+    authServiceSpy.getTokenObservable.and.returnValue(of('test-token'));
 
     http.get('/api/data').subscribe();
 
@@ -51,17 +52,22 @@ describe('jwtInterceptor', () => {
   });
 
   it('should not add Authorization header if token is missing', () => {
-    authServiceSpy.getToken.and.returnValue(null);
+    authServiceSpy.getTokenObservable.and.returnValue(of(null));
 
-    http.get('/api/data').subscribe();
+    http.get('/api/data2').subscribe({
+      error: () => {
+        expect(authServiceSpy.removeToken).toHaveBeenCalled();
+        expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
+      },
+    });
 
-    const req = httpMock.expectOne('/api/data');
+    const req = httpMock.expectOne('/api/data2');
     expect(req.request.headers.has('Authorization')).toBeFalse();
     req.flush({});
   });
 
   it('should handle 401 error by removing token and navigating to login', () => {
-    authServiceSpy.getToken.and.returnValue('expired-token');
+    authServiceSpy.getTokenObservable.and.returnValue(of('expired-token'));
 
     http.get('/api/protected').subscribe({
       error: () => {

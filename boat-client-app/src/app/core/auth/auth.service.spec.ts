@@ -27,10 +27,15 @@ describe('AuthService', () => {
   });
 
   it('should login and return token and role', () => {
-    const mockResponse = { jwtToken: 'test-token', role: 'USER' };
+    const mockResponse = { jwtToken: 'test-token', role: 'User' };
+    let emittedToken: string | null = null;
+
+    service.getTokenObservable().subscribe(token => emittedToken = token);
 
     service.login('testuser', 'testpass').subscribe((res) => {
       expect(res).toEqual(mockResponse);
+      expect(localStorage.getItem('jwt_token')).toBe('test-token');
+      expect(emittedToken).toBe('test-token');
     });
 
     const req = httpMock.expectOne(`${apiUrl}/login`);
@@ -55,14 +60,19 @@ describe('AuthService', () => {
   });
 
   it('should get/set/remove token correctly from localStorage', () => {
-    expect(service.getToken()).toBeNull();
+    let emittedToken: string | null = null;
+    service.getTokenObservable().subscribe(token => emittedToken = token);
+
+    expect(localStorage.getItem('jwt_token')).toBeNull();
+    expect(emittedToken).toBeNull();
 
     service.setToken('abc123');
     expect(localStorage.getItem('jwt_token')).toBe('abc123');
-    expect(service.getToken()).toBe('abc123');
+    expect(emittedToken as string | null).toBe('abc123');
 
     service.removeToken();
     expect(localStorage.getItem('jwt_token')).toBeNull();
+    expect(emittedToken).toBeNull();
   });
 
   it('should return true from isLoggedIn when token exists and should return false from isLoggedIn when token is missing', () => {
