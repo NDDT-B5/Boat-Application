@@ -8,19 +8,22 @@
   <p>Would you like to {{ isEdit ? "edit" : "create" }} the following boat?</p>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
-    <mat-form-field appearance="outline" class="w-full mb-4" *ngIf="isEdit">
+    <mat-form-field appearance="outline" class="w-full mb-8" *ngIf="isEdit">
       <mat-label>ID</mat-label>
       <input matInput formControlName="id" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-full mb-4">
+    <mat-form-field appearance="outline" class="w-full mb-8">
       <mat-label>Boat Name</mat-label>
-      <input matInput formControlName="name" required />
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="form.get('name')?.hasError('required')">Boat name is required</mat-error>
+      <mat-error *ngIf="form.get('name')?.hasError('maxlength')">Name cannot exceed 100 characters</mat-error>
     </mat-form-field>
   
-    <mat-form-field appearance="outline" class="w-full mb-4">
+    <mat-form-field appearance="outline" class="w-full">
       <mat-label>Description</mat-label>
-      <textarea matInput formControlName="description" rows="4" required></textarea>
+      <textarea matInput formControlName="description" rows="4"></textarea>
+      <mat-error *ngIf="form.get('description')?.hasError('maxlength')">Description cannot exceed 500 characters</mat-error>
     </mat-form-field>
   </form>
 </div>

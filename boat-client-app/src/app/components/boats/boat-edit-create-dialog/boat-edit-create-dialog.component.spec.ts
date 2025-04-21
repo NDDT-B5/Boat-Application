@@ -43,20 +43,38 @@ describe('BoatEditCreateDialogComponent', () => {
       expect(component.form.get('id')?.value).toBe(boatMock.id);
     });
   
-    it('should make the name and description fields required', () => {
+    it('should validate name as required and both fields for max length', () => {
       const nameControl = component.form.get('name');
       const descriptionControl = component.form.get('description');
-      
+
       nameControl?.setValue('');
-      descriptionControl?.setValue('');
-      
       expect(nameControl?.valid).toBeFalse();
+      expect(nameControl?.hasError('required')).toBeTrue();
+
+      descriptionControl?.setValue('');
+      expect(descriptionControl?.valid).toBeTrue();
+      expect(descriptionControl?.hasError('required')).toBeFalse();
+   
+      nameControl?.setValue('a'.repeat(101));
+      expect(nameControl?.valid).toBeFalse();
+      expect(nameControl?.hasError('maxlength')).toBeTrue();
+
+      nameControl?.setValue('a'.repeat(100));
+      expect(nameControl?.valid).toBeTrue();
+      expect(nameControl?.hasError('maxlength')).toBeFalse();
+
+      descriptionControl?.setValue('a'.repeat(501));
       expect(descriptionControl?.valid).toBeFalse();
+      expect(descriptionControl?.hasError('maxlength')).toBeTrue();
+    
+      descriptionControl?.setValue('a'.repeat(500));
+      expect(descriptionControl?.valid).toBeTrue();
+      expect(descriptionControl?.hasError('maxlength')).toBeFalse();
     });
   
-    it('should submit the form with valid data and without ID', () => {
+    it('should submit the form with valid data and with ID', () => {
       const formValue = { name: 'Boat 2', description: 'Description of Boat 2', id: '6302e53f-f63c-4119-8fc3-52e9b2ebed34' };
-      const expectedSubmission = { name: 'Boat 2', description: 'Description of Boat 2' };
+      const expectedSubmission = { name: 'Boat 2', description: 'Description of Boat 2', id: '6302e53f-f63c-4119-8fc3-52e9b2ebed34' };
       component.form.setValue(formValue);
   
       component.onSubmit();

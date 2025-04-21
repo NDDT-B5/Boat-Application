@@ -6,17 +6,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mr-16 { margin-right: 16px; }
 .mr-24 { margin-right: 24px; }
 
+.mb-8 { margin-bottom: 8px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+
 .success-snackbar.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
     background-color: rgb(0, 88, 0);
     color: white;
 }
   
-.error-snackbar {
+.error-snackbar.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
     background-color: rgb(157, 0, 0);
     color: white;
 }
 
-.info-snackbar {
+.info-snackbar.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
     background-color: rgb(40, 40, 192);
     color: white;
 }
