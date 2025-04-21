@@ -3,9 +3,9 @@ import { BoatDetailComponent } from './boat-detail.component';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { BoatService } from '../../../core/services/boat.service';
-import { SnackbarService } from '../../../shared/services/snackbar.service';
 import { BoatsDataSource } from '../../../shared/data/boats-datasource';
 import { BoatDto } from '../../../shared/models/boat.model';
+import { SnackbarService } from '../../../core/services/snackbar.service';
 
 describe('BoatDetailComponent', () => {
   let component: BoatDetailComponent;
@@ -33,7 +33,6 @@ describe('BoatDetailComponent', () => {
     boatServiceSpy = jasmine.createSpyObj('BoatService', ['getById', 'delete']);
     snackbarSpy = jasmine.createSpyObj('SnackbarService', ['showError', 'showSuccess']);
     dataSourceSpy = jasmine.createSpyObj('BoatsDataSource', ['deleteBoat']);
-
 
     await TestBed.configureTestingModule({
       imports: [BoatDetailComponent],

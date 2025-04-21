@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 import { BoatsDataSource } from '../../shared/data/boats-datasource';
 import { BoatDto } from '../../shared/models/boat.model';
 import { BoatService } from '../../core/services/boat.service';
-import { SnackbarService } from '../../shared/services/snackbar.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BoatDeleteManyDialogComponent } from './boat-delete-many-dialog/boat-delete-many-dialog.component';
+import { SnackbarService } from '../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-boats',
@@ -42,9 +42,7 @@ export class BoatsComponent implements AfterViewInit {
     private dialog: MatDialog,
     private boatService: BoatService,
     private router: Router,
-    private snackBarService: SnackbarService,
-    private cdr: ChangeDetectorRef) {}
-
+    private snackBarService: SnackbarService) {}
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;

@@ -36,8 +36,7 @@ export class LoginComponent {
   login() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe({
-        next: (response) => {
-          this.authService.setToken(response.jwtToken);
+        next: (_) => {
           this.router.navigate(['/boats']);
         },
         error: (_) => {

@@ -34,8 +34,8 @@ export class NavigationComponent {
       shareReplay()
     );
 
-    logout() {
-      this.authService.removeToken();
-      this.router.navigate(['/login']);
-    }
+  logout() {
+    this.authService.removeToken();
+    this.router.navigate(['/login']);
+  }
 }

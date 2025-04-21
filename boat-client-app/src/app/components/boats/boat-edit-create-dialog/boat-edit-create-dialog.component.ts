@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { BoatDto } from '../../../shared/models/boat.model';
-import { SnackbarService } from '../../../shared/services/snackbar.service';
+import { SnackbarService } from '../../../core/services/snackbar.service';
 
 export interface BoatEditCreateDialogData {
   mode: 'add' | 'edit';
@@ -27,7 +27,8 @@ export interface BoatEditCreateDialogData {
     MatIconModule
   ],
   templateUrl: './boat-edit-create-dialog.component.html',
-  styleUrl: './boat-edit-create-dialog.component.scss'
+  styleUrl: './boat-edit-create-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoatEditCreateDialogComponent implements OnInit {
   isEdit: boolean = true;

@@ -5,8 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { BoatDto } from '../../../shared/models/boat.model';
 import { BoatService } from '../../../core/services/boat.service';
 import { BoatsDataSource } from '../../../shared/data/boats-datasource';
-import { SnackbarService } from '../../../shared/services/snackbar.service';
 import { MatIconModule } from '@angular/material/icon';
+import { SnackbarService } from '../../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-boat-detail',

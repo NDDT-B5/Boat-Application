@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
@@ -20,7 +20,8 @@ export interface BoatDeleteDialogData {
     MatListModule
   ],
   templateUrl: './boat-delete-many-dialog.component.html',
-  styleUrl: './boat-delete-many-dialog.component.scss'
+  styleUrl: './boat-delete-many-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoatDeleteManyDialogComponent {
   constructor(
