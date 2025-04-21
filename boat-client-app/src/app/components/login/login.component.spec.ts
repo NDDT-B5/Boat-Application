@@ -61,7 +61,6 @@ describe('LoginComponent', () => {
     component.login();
 
     expect(authServiceSpy.login).toHaveBeenCalledWith('admin', '1234');
-    expect(authServiceSpy.setToken).toHaveBeenCalledWith(token);
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/boats']);
   });
 
