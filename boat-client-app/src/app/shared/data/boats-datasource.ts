@@ -88,6 +88,10 @@ export class BoatsDataSource extends DataSource<BoatDto> {
     }
   }
 
+  get visibleBoats(): BoatDto[] {
+    return this.getPagedData(this.dataLoaded$.value.slice());
+  }
+
   /**
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.

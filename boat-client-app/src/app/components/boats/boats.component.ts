@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
@@ -12,31 +12,49 @@ import { BoatsDataSource } from '../../shared/data/boats-datasource';
 import { BoatDto } from '../../shared/models/boat.model';
 import { BoatService } from '../../core/services/boat.service';
 import { SnackbarService } from '../../shared/services/snackbar.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-boats',
   templateUrl: './boats.component.html',
   styleUrl: './boats.component.scss',
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule, MatDialogModule]
+  imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    JsonPipe
+  ]
 })
 export class BoatsComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<BoatDto>;
 
+  displayedColumns = ['select', 'id', 'name', 'desc', 'actions'];
+  selection: BoatDto[] = [];
+
   constructor(
     public dataSource: BoatsDataSource,
     private dialog: MatDialog,
     private boatService: BoatService,
     private router: Router,
-    private snackBarService: SnackbarService) {}
+    private snackBarService: SnackbarService,
+    private cdr: ChangeDetectorRef) {}
 
-  displayedColumns = ['id', 'name', 'desc', 'actions'];
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+
+    this.paginator.page.subscribe(() => {
+      this.clearSelection();
+    });
   }
 
   onCreate() {
@@ -110,5 +128,40 @@ export class BoatsComponent implements AfterViewInit {
 
   onRowClick(boat: BoatDto) {
     this.router.navigate(['/boats', boat.id], { state: { boat } });
+  }
+
+
+  toggleSelection(row: BoatDto) {
+    const index = this.selection.findIndex(b => b.id === row.id);
+    if (index >= 0) {
+      this.selection.splice(index, 1);
+    } else {
+      this.selection.push(row);
+    }
+  }
+
+  isAllSelected(): boolean {
+    return this.selection.length === this.dataSource.visibleBoats.length;
+  }
+
+  isSomeSelected(): boolean {
+    return this.selection.length > 0 && !this.isAllSelected();
+  }
+
+  toggleSelectAll(event: any): void {
+    const rows = this.dataSource.visibleBoats;
+    if (event.checked) {
+      rows.forEach(row => {
+        if (!this.selection.find(s => s.id === row.id)) {
+          this.selection.push(row);
+        }
+      });
+    } else {
+      this.selection = this.selection.filter(s => !rows.some(row => row.id === s.id));
+    }
+  }
+
+  clearSelection(): void {
+    this.selection = [];
   }
 }
