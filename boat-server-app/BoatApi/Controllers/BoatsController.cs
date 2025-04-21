@@ -62,7 +62,9 @@ public class BoatsController(IMapper mapper, IBoatService boatService) : Control
     /// </summary>
     /// <param name="id">The unique identifier of the boat to update.</param>
     /// <param name="dto">The data transfer object containing the updated boat information.</param>
-    /// <returns>A 204 No Content status code upon successful update.</returns>
+    /// <returns>A response indicating the result of the update operation.</returns>
+    /// <response code="204">Boat was successfully updated.</response>
+    /// <response code="404">The boat specified in the list was not found.</response>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(204)]
     [ProducesResponseType(404)]
@@ -76,13 +78,33 @@ public class BoatsController(IMapper mapper, IBoatService boatService) : Control
     /// Deletes a boat by its unique identifier.
     /// </summary>
     /// <param name="id">The unique identifier of the boat to delete.</param>
-    /// <returns>A 204 No Content status code upon successful deletion.</returns>
+    /// <returns>A response indicating the result of the deletion operation.</returns>
+    /// <response code="204">Boat was successfully deleted.</response>
+    /// <response code="404">The boat specified in the list was not found.</response>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(204)]
     [ProducesResponseType(404)]
     public async Task<IActionResult> DeleteBoat(Guid id)
     {
         await boatService.DeleteBoatAsync(id).ConfigureAwait(false);
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Deletes multiple boats from the system.
+    /// This action allows for deleting many boats at once by specifying a list of boat IDs.
+    /// </summary>
+    /// <param name="dto">The DTO containing the list of boat IDs to be deleted.</param>
+    /// <returns>A response indicating the result of the deletion operation.</returns>
+    /// <response code="204">Boats were successfully deleted.</response>
+    /// <response code="400">The provided list of boat IDs is invalid.</response>
+    /// <response code="404">One or more boats specified in the list were not found.</response>
+    [HttpDelete("delete-many")]
+    [ProducesResponseType(204)]
+    [ProducesResponseType(404)]
+    public async Task<IActionResult> DeleteMany(DeleteManyBoatsDto dto)
+    {
+        await boatService.DeleteManyAsync(dto);
         return NoContent();
     }
 }

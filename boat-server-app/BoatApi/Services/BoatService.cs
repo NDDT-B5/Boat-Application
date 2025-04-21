@@ -59,4 +59,23 @@ public sealed class BoatService(ApplicationDbContext context, IMapper mapper) : 
         context.Boats.Remove(boatToDelete);
         await context.SaveChangesAsync().ConfigureAwait(false);
     }
+
+    /// <inheritdoc />
+    public async Task DeleteManyAsync(DeleteManyBoatsDto dto)
+    {
+        if (dto?.Ids == null || !dto.Ids.Any())
+        {
+            throw new ArgumentException("The list of boat IDs is required.");
+        }
+
+        var boats = await context.Boats.Where(b => dto.Ids.Contains(b.Id)).ToListAsync();
+
+        if (boats.Count != dto.Ids.Count)
+        {
+            throw new KeyNotFoundException("Some of the specified boats were not found.");
+        }
+
+        context.Boats.RemoveRange(boats);
+        await context.SaveChangesAsync();
+    }
 }

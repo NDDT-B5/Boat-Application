@@ -10,9 +10,9 @@ public interface IBoatService
     /// <summary>
     /// Asynchronously creates a new boat using the provided <see cref="CreateBoatDto"/>.
     /// </summary>
-    /// <param name="command">The <see cref="CreateBoatDto"/> containing the boat details.</param>
+    /// <param name="dto">The <see cref="CreateBoatDto"/> containing the boat details.</param>
     /// <returns>A task representing the asynchronous operation. The result is the <see cref="BoatDto"/> of the newly created boat.</returns>
-    Task<BoatDto> CreateBoatAsync(CreateBoatDto command);
+    Task<BoatDto> CreateBoatAsync(CreateBoatDto dto);
 
     /// <summary>
     /// Asynchronously retrieves a boat by its unique identifier.
@@ -31,14 +31,21 @@ public interface IBoatService
     /// Asynchronously updates an existing boat with the provided <see cref="UpdateBoatDto"/>.
     /// </summary>
     /// <param name="id">The unique identifier of the boat to update.</param>
-    /// <param name="command">The <see cref="UpdateBoatDto"/> containing the updated boat details.</param>
-    /// <returns>A task representing the asynchronous operation. The result is <c>true</c> if the boat was successfully updated, otherwise <c>false</c>.</returns>
-    Task UpdateBoatAsync(Guid id, UpdateBoatDto command);
+    /// <param name="dto">The <see cref="UpdateBoatDto"/> containing the updated boat details.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task UpdateBoatAsync(Guid id, UpdateBoatDto dto);
 
     /// <summary>
     /// Asynchronously deletes a boat by its unique identifier.
     /// </summary>
     /// <param name="id">The unique identifier of the boat to delete.</param>
-    /// <returns>A task representing the asynchronous operation. The result is <c>true</c> if the boat was successfully deleted, otherwise <c>false</c>.</returns>
+    /// <returns>A task representing the asynchronous operation.</returns>
     Task DeleteBoatAsync(Guid id);
+
+    /// <summary>
+    /// Asynchronously deletes multiple boats by their unique identifiers.
+    /// </summary>
+    /// <param name="dto">The DTO containing a list of boat IDs to delete.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task DeleteManyAsync(DeleteManyBoatsDto dto);
 }
