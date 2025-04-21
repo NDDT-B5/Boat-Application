@@ -4,7 +4,11 @@
     <p><strong>Description:</strong> {{ boat?.description }}</p>
 
     <div class="button-group">
-        <button mat-raised-button color="warn" (click)="deleteBoat()" class="mr-16">Delete</button>
-        <button mat-raised-button (click)="goBack()">Back to List</button>
+        <button mat-raised-button color="warn" (click)="deleteBoat()" class="mr-16">
+            <mat-icon>delete</mat-icon> Delete
+        </button>
+        <button mat-raised-button (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon> Back to List
+        </button>
     </div>
 </div>

@@ -6,10 +6,11 @@ import { BoatDto } from '../../../shared/models/boat.model';
 import { BoatService } from '../../../core/services/boat.service';
 import { BoatsDataSource } from '../../../shared/data/boats-datasource';
 import { SnackbarService } from '../../../shared/services/snackbar.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-boat-detail',
-  imports: [ CommonModule, MatButtonModule ],
+  imports: [ CommonModule, MatButtonModule, MatIconModule ],
   templateUrl: './boat-detail.component.html',
   styleUrl: './boat-detail.component.scss'
 })

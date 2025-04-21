@@ -51,6 +51,12 @@ export class BoatsDataSource extends DataSource<BoatDto> {
     this.dataLoaded$.next(updatedBoats);
   }
 
+  deleteMany(idsToDelete: string[]): void {
+    const currentBoats = this.dataLoaded$.getValue();
+    const updatedBoats = currentBoats.filter(boat => !idsToDelete.includes(boat.id));
+    this.dataLoaded$.next(updatedBoats);
+  }
+
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.

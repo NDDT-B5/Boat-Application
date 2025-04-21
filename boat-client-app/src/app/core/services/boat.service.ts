@@ -32,4 +32,8 @@ export class BoatService {
   delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  deleteMany(ids: string[]): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/delete-many`,{ body: { ids }});
+  }
 }

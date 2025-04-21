@@ -1,0 +1,20 @@
+.form-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+  
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  margin-right: 15px;
+}
+
+.mdc-list-item--with-leading-icon mat-icon.mdc-list-item__start  {
+  color: rgb(0, 69, 143);
+}

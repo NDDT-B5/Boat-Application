@@ -8,7 +8,7 @@
       Add Boat
     </button>
   
-    <button mat-fab extended (click)="onDeleteMany()">
+    <button mat-fab extended (click)="onDeleteMany()" [disabled]="selection.length === 0">
       <mat-icon>delete</mat-icon>
       <mat-icon>sailing</mat-icon>
       Delete Selected Boats
@@ -71,10 +71,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)" class="clickable-row"></tr>
     </table>
-
-    {{ selection | json }}
-
-    {{ selection.length }}
   
     <mat-paginator #paginator
         [length]="dataSource.dataLoaded$.value.length"

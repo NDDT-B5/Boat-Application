@@ -13,7 +13,7 @@ import { BoatDto } from '../../shared/models/boat.model';
 import { BoatService } from '../../core/services/boat.service';
 import { SnackbarService } from '../../shared/services/snackbar.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { JsonPipe } from '@angular/common';
+import { BoatDeleteManyDialogComponent } from './boat-delete-many-dialog/boat-delete-many-dialog.component';
 
 @Component({
   selector: 'app-boats',
@@ -26,8 +26,7 @@ import { JsonPipe } from '@angular/common';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatCheckboxModule,
-    JsonPipe
+    MatCheckboxModule
   ]
 })
 export class BoatsComponent implements AfterViewInit {
@@ -111,6 +110,7 @@ export class BoatsComponent implements AfterViewInit {
         this.boatService.delete(boat.id).subscribe({
           next: () => {
             this.dataSource.deleteBoat(boat.id);
+            this.selection = this.selection.filter(s => s.id != boat.id)
             this.snackBarService.showSuccess(`Boat with id ${boat.id} deleted successfully!`);
           },
           error: () => {
@@ -122,14 +122,33 @@ export class BoatsComponent implements AfterViewInit {
   }
 
   onDeleteMany() {
-    this.dialog.open(BoatDeleteDialogComponent);
-    console.log("Delete Many clicked");
+    const dialogRef = this.dialog.open(BoatDeleteManyDialogComponent, {
+      autoFocus: false,
+      data: {
+        boats: this.selection
+      }
+    })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const idsToDelete = this.selection.map(b => b.id);
+        this.boatService.deleteMany(idsToDelete).subscribe({
+          next: () => {
+            this.dataSource.deleteMany(idsToDelete);
+            this.selection = [];
+            this.snackBarService.showSuccess('Selected boats deleted successfully!');
+          },
+          error: () => {
+            this.snackBarService.showError('Failed to delete selected boats!');
+          }
+        });
+      }
+    });
   }
 
   onRowClick(boat: BoatDto) {
     this.router.navigate(['/boats', boat.id], { state: { boat } });
   }
-
 
   toggleSelection(row: BoatDto) {
     const index = this.selection.findIndex(b => b.id === row.id);

@@ -1,0 +1,25 @@
+<div class="dialog-header">
+    <h1 mat-dialog-title>Delete Boats</h1>
+    <button mat-icon-button mat-dialog-close aria-label="Close" class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  
+  <div mat-dialog-content>
+    <p>Are you sure you want to delete the following boats?</p>
+    
+    <mat-list>
+        @for (boat of data.boats; track boat) {
+          <mat-list-item>
+            <mat-icon matListItemIcon>sailing</mat-icon>
+            <div matListItemTitle>{{boat.name}}</div>
+            <div matListItemLine>{{boat.id}}</div>
+          </mat-list-item>
+        }
+    </mat-list>
+  </div>
+  
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button color="warn" (click)="onDelete()">Delete All</button>
+  </div>
