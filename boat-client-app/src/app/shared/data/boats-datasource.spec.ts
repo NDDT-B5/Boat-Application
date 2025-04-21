@@ -52,6 +52,4 @@ describe('BoatsDataSource', () => {
       expect(boats).toEqual(mockBoats);
     });
   });
-
-  // Add more tests here as necessary
 });

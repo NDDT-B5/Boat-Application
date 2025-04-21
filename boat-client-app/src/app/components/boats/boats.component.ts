@@ -75,14 +75,15 @@ export class BoatsComponent implements AfterViewInit {
   
   onEdit(boat: BoatDto, event: MouseEvent) {
     event.stopPropagation();
-    this.dialog.open(BoatEditCreateDialogComponent, {
+    const dialogRef = this.dialog.open(BoatEditCreateDialogComponent, {
       autoFocus: false,
       data: {
         mode: 'edit',
         boat: boat
       }
-    }).afterClosed()
-    .subscribe(result => {
+    })
+    
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.boatService.update(result.id, result).subscribe({
           next: () => {
@@ -99,13 +100,14 @@ export class BoatsComponent implements AfterViewInit {
   
   onDelete(boat: BoatDto, event: MouseEvent) {
     event.stopPropagation();
-    this.dialog.open(BoatDeleteDialogComponent, {
+    const dialogRef = this.dialog.open(BoatDeleteDialogComponent, {
       autoFocus: false,
       data: {
         boat: boat
       }
-    }).afterClosed()
-    .subscribe((result) => {
+    })
+    
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.boatService.delete(boat.id).subscribe({
           next: () => {

@@ -94,4 +94,20 @@ describe('BoatService', () => {
     expect(req.request.method).toBe('DELETE');
     req.flush(null);
   });
+
+  it('should delete many boats', () => {
+    const idsToDelete = [
+      '6302e53f-f63c-4119-8fc3-52e9b2ebed34',
+      '6302e53f-f63c-4119-8fc3-52e9b2ebed39'
+    ];
+  
+    service.deleteMany(idsToDelete).subscribe(response => {
+      expect(response).toBeNull();
+    });
+  
+    const req = httpMock.expectOne(`${apiUrl}/delete-many`);
+    expect(req.request.method).toBe('DELETE');
+    expect(req.request.body).toEqual({ ids: idsToDelete });
+    req.flush(null);
+  });
 });
