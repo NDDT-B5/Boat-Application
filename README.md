@@ -31,7 +31,12 @@ You can find the current TODO list [here](TODO.md).
 
 ## Testing
 
-40 Tests are implemented for the frontend. Execute with:
+66 Tests are implemented for the frontend. Execute with:
 ```bash
 ng test
+```
+
+25 Test are implemented for the backend. Execute with Visual Studio Test-Explorer or:
+```bash
+dotnet test
 ```
